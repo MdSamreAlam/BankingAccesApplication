@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DemotestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountHolderDetail">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="EmailId" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="BalanceAmount" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Customer1">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="EmailId" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CustomerTranscation_Details">
+          <Key>
+            <PropertyRef Name="CustomerFundId" />
+          </Key>
+          <Property Name="CustomerFundId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="varchar" MaxLength="100" />
+          <Property Name="Credit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Debit" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Balance" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transcation_Details">
+          <Key>
+            <PropertyRef Name="TranscationId" />
+          </Key>
+          <Property Name="TranscationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountNumber" Type="varchar" MaxLength="100" />
+          <Property Name="TranscationType" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TranscationDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__CustomerT__Custo__41EDCAC5">
+          <End Role="Customer1" Type="Self.Customer1" Multiplicity="0..1" />
+          <End Role="CustomerTranscation_Details" Type="Self.CustomerTranscation_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer1">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerTranscation_Details">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transcati__Accou__681373AD">
+          <End Role="AccountHolderDetail" Type="Self.AccountHolderDetail" Multiplicity="0..1" />
+          <End Role="Transcation_Details" Type="Self.Transcation_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountHolderDetail">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transcation_Details">
+              <PropertyRef Name="AccountNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemotestModelStoreContainer">
+          <EntitySet Name="AccountHolderDetail" EntityType="Self.AccountHolderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer1" EntityType="Self.Customer1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTranscation_Details" EntityType="Self.CustomerTranscation_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transcation_Details" EntityType="Self.Transcation_Details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CustomerT__Custo__41EDCAC5" Association="Self.FK__CustomerT__Custo__41EDCAC5">
+            <End Role="Customer1" EntitySet="Customer1" />
+            <End Role="CustomerTranscation_Details" EntitySet="CustomerTranscation_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transcati__Accou__681373AD" Association="Self.FK__Transcati__Accou__681373AD">
+            <End Role="AccountHolderDetail" EntitySet="AccountHolderDetail" />
+            <End Role="Transcation_Details" EntitySet="Transcation_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemotestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customer1" EntityType="DemotestModel.Customer1" />
+          <EntitySet Name="CustomerTranscation_Details" EntityType="DemotestModel.CustomerTranscation_Details" />
+          <AssociationSet Name="FK__CustomerT__Custo__41EDCAC5" Association="DemotestModel.FK__CustomerT__Custo__41EDCAC5">
+            <End Role="Customer1" EntitySet="Customer1" />
+            <End Role="CustomerTranscation_Details" EntitySet="CustomerTranscation_Details" />
+          </AssociationSet>
+          <EntitySet Name="Transcation_Details" EntityType="DemotestModel.Transcation_Details" />
+          <EntitySet Name="AccountHolderDetails" EntityType="DemotestModel.AccountHolderDetail" />
+          <AssociationSet Name="FK__Transcati__Accou__681373AD" Association="DemotestModel.FK__Transcati__Accou__681373AD">
+            <End Role="AccountHolderDetail" EntitySet="AccountHolderDetails" />
+            <End Role="Transcation_Details" EntitySet="Transcation_Details" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer1">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CustomerTranscation_Details" Relationship="DemotestModel.FK__CustomerT__Custo__41EDCAC5" FromRole="Customer1" ToRole="CustomerTranscation_Details" />
+        </EntityType>
+        <EntityType Name="CustomerTranscation_Details">
+          <Key>
+            <PropertyRef Name="CustomerFundId" />
+          </Key>
+          <Property Name="CustomerFundId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Credit" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Debit" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Balance" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Customer1" Relationship="DemotestModel.FK__CustomerT__Custo__41EDCAC5" FromRole="CustomerTranscation_Details" ToRole="Customer1" />
+        </EntityType>
+        <Association Name="FK__CustomerT__Custo__41EDCAC5">
+          <End Type="DemotestModel.Customer1" Role="Customer1" Multiplicity="0..1" />
+          <End Type="DemotestModel.CustomerTranscation_Details" Role="CustomerTranscation_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer1">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="CustomerTranscation_Details">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transcation_Details">
+          <Key>
+            <PropertyRef Name="TranscationId" />
+          </Key>
+          <Property Name="TranscationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TranscationType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="TranscationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AccountHolderDetail" Relationship="DemotestModel.FK__Transcati__Accou__681373AD" FromRole="Transcation_Details" ToRole="AccountHolderDetail" />
+        </EntityType>
+        <EntityType Name="AccountHolderDetail">
+          <Key>
+            <PropertyRef Name="AccountNumber" />
+          </Key>
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BalanceAmount" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Transcation_Details" Relationship="DemotestModel.FK__Transcati__Accou__681373AD" FromRole="AccountHolderDetail" ToRole="Transcation_Details" />
+        </EntityType>
+        <Association Name="FK__Transcati__Accou__681373AD">
+          <End Type="DemotestModel.AccountHolderDetail" Role="AccountHolderDetail" Multiplicity="0..1" />
+          <End Type="DemotestModel.Transcation_Details" Role="Transcation_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccountHolderDetail">
+              <PropertyRef Name="AccountNumber" />
+            </Principal>
+            <Dependent Role="Transcation_Details">
+              <PropertyRef Name="AccountNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemotestModelStoreContainer" CdmEntityContainer="CustomerEntities">
+          <EntitySetMapping Name="Customer1">
+            <EntityTypeMapping TypeName="DemotestModel.Customer1">
+              <MappingFragment StoreEntitySet="Customer1">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTranscation_Details">
+            <EntityTypeMapping TypeName="DemotestModel.CustomerTranscation_Details">
+              <MappingFragment StoreEntitySet="CustomerTranscation_Details">
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerFundId" ColumnName="CustomerFundId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transcation_Details">
+            <EntityTypeMapping TypeName="DemotestModel.Transcation_Details">
+              <MappingFragment StoreEntitySet="Transcation_Details">
+                <ScalarProperty Name="TranscationDate" ColumnName="TranscationDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TranscationType" ColumnName="TranscationType" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="TranscationId" ColumnName="TranscationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountHolderDetails">
+            <EntityTypeMapping TypeName="DemotestModel.AccountHolderDetail">
+              <MappingFragment StoreEntitySet="AccountHolderDetail">
+                <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
